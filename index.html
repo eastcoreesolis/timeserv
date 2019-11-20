@@ -1,5 +1,6 @@
 <html>
 <head>
+<script language="JavaScript" src="randomAtRefresh.js" type="text/javascript"></script>
 <script type="text/javascript">
 function startTime()
 {
@@ -21,10 +22,23 @@ i="0" + i;
 }
 return i;
 }
+
+function PickImage()
+{
+     num = Math.round(Math.random()*11)+1;
+     ranImage="photo" + num + ".png";
+     return ranImage;
+}
+
 </script>
 </head>
 <body onload="startTime()">
 <div id="txt"></div>
-<img src="image.png" alt="stress">
+
+
+<SCRIPT>document.write ('<img src="' + PickImage() + '" width=500 height=500 alt="stress" border="0">')</SCRIPT>
+
 </body>
 </html>
+
+
