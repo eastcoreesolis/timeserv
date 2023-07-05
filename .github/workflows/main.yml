@@ -1,0 +1,39 @@
+name: Repository and Container Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: eastcoreesolis/timeserv:latest
+
+      - name: Run container
+        run: |
+          docker run -d -p 8080:8080 eastcoreesolis/timeserv:latest
+
+      - name: Wait for container to start
+        run: |
+          sleep 10 # Adjust as needed
+
+      - name: Test web service
+        run: |
+          curl http://localhost:8080 # Replace with appropriate endpoint or test command
+
+      - name: Take screenshot of web page
+        run: |
+          mkdir screenshots
+          cd screenshots
+          wget http://localhost:8080 # Replace with appropriate URL or screenshot command
